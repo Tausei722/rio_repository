@@ -1,0 +1,22 @@
+{% extends "base.html" %} 
+{% block content %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="has-text-centered box">
+        <h1>ログアウトしました</h1>
+        <br>
+        <div class="control">
+            {% csrf_token %}
+            <a href="{% url 'home' %}"><button class="button is-danger has-text-centered" id="myButton">閉じる</button></a>
+        </div>
+    </div>
+</body>
+</html>
+{% endblock %}

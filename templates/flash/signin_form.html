@@ -1,0 +1,39 @@
+{% extends "base.html" %} 
+{% block content %}
+{% load static %}
+<form action="" method="POST" enctype="multipart/form-data" class="send-form has-text-centered box">
+    {% csrf_token %}
+    <div class="field">
+        <!-- <p class="help is-info hyde" id="hyde">ユーザー名、メールアドレスがすでに使われているか、何かしらの誤りがあります</p> -->
+         {{form.errors}}
+        <label class="label">名前</label>
+        <div class="control">
+            {{form.username}}
+        </div>
+    </div></br>
+    <div class="field">
+        <label class="label">メール</label>
+        <div class="control">
+            {{form.email}}
+        </div>
+    </div></br>
+    <div class="field">
+        <label class="label">パスワード</label>
+        <div class="control">
+            {{form.password}}
+        </div>
+    </div></br>
+    <div class="field">
+        <label class="label">パスワード確認</label>
+        <div class="control">
+            {{form.confirm_password}}
+        </div>
+        <p class="help is-info">パスワードの確認</p>
+    </div></br>
+    <div class="field">
+        <div class="control">
+            <button class="button is-danger has-text-centered" id="myButton">サインイン</button>
+        </div>
+    </div>
+</form>
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends "base.html" %} 
+{% block content %}
+{% load static %}
+    {% csrf_token %}
+    <div class="columns is-mobile">
+        <div class="column">
+            <div class="field">
+                <label class="label">名前</label>
+                <div class="control">
+                    {{user.username}}
+                </div>
+            </div></br>
+            <div class="field">
+                <label class="label">メールアドレス</label>
+                <div class="control">
+                    {{user.email}}
+                </div>
+            </div></br>
+        </div>
+        <div class="columns">
+            <div class="column is-8">
+                <a href="{% url 'home' %}"><button class="button is-danger has-text-centered" id="myButton" type="submit">ホーム</button></a>
+            </div>
+        </div>
+    </div>
+    <div class="field">
+        <label class="label">公開動画</label>
+        {% if movies %}
+            {% for movie in movies %}
+            <div class="box columns">
+                <a href="{{movie.movie.url}}" class="column is-8">{{movie.movie.name}}
+                    <div class="column image is-4by3">
+                        <img src="{{movie.thumbnail.url}}" alt="">
+                    </div>
+                </a>
+                <form action="" method="POST" enctype="multipart/form-data" class="send-form has-text-centered box">
+                    {% csrf_token %}
+                    <div class="field">
+                        <div class="control">
+                            {% if movie.public %}
+                            <input type="text" name="public" id="" style="display: none;" value="{{movie.id}}">
+                                <button class="button is-danger has-text-centered" id="myButton">公開</button>
+                            {% else %}
+                            <input type="text" name="private" id="" style="display: none;" value="{{movie.id}}">
+                                <button class="button is-danger has-text-centered" id="myButton">非公開</button>
+                            {% endif %}
+                        </div>
+                    </div>
+                </form>
+                <a href="{{movie.movie.url}}" download="{movie.name}">ダウンロードする</a>
+            </div></br>
+            {% endfor %}
+        {% else %}
+        {% endif %}
+    </div>
+{% endblock %}

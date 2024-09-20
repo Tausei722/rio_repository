@@ -1,0 +1,43 @@
+{% extends "base.html" %} 
+{% block content %}
+{% load static %}
+<form action="" method="POST" enctype="multipart/form-data" class="send-form has-text-centered box" id="myForm" name="movie">
+    {% csrf_token %}
+    <div class="field">
+        {% if message %}
+        <h1>{{form}}</h1>
+        <p class="help is-info">{{message}}</p>
+        {% endif %}
+        <label class="label">変換したい動画</label>
+        <div class="control">
+            {{form}}
+        </div>
+    </div></br>
+    <div class='loading' id="loading">
+        <img src="{% static 'loading.gif' %}" alt="Loading...">
+        <h2>5分ほどかかる場合がございます</h2><br>
+    </div>
+    <div class="field">
+        <div class="control">
+            <button class="button is-danger has-text-centered" id="myButton">変換</button>
+        </div>
+    </div>
+</form>
+{% for movie in movies %}
+{% if movie.rio_recommendation %}
+<a href="{{movie.movie.url}}">
+<div class="box">
+    <div class="field card-content">
+        <label class="label">{{movie.post_user}}</label>
+        <div class="control">
+            <figure class="image is-4by3">
+                <img src="{{movie.thumbnail.url}}" alt="">
+            </figure><br>
+            <a href="{{movie.movie.url}}" download="{movie.name}">ダウンロードする</a>
+        </div>
+    </div></br>
+</div>
+</a>
+{% endif %}
+{% endfor %}
+{% endblock %}
